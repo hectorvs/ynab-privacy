@@ -1,4 +1,39 @@
-<div class="jumbotron">
-  <h1>Welcome!</h1>
-  <p>Authenticate via one of the social networks to get started.</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="jumbotron">
+        <h4>YNAB</h4>
+          <% if current_user %>
+            <p>
+             <span>Connected</span> <i class="material-icons">done</i>
+            </p>
+            <%= link_to "Log out from YNAB", log_out_path, class: 'btn btn-primary btn-sm' %>
+          <% else %>
+          <p>Log in with YNAB to start linking your transactions :)</p>
+          <%= link_to "Sign in To YNAB", "/auth/ynab_auth", class: 'btn btn-primary btn-lg' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="jumbotron">
+        <h4>Privacy.com</h4>
+        <% if current_user %>
+          <p>Obtain an access key for the Privacy.com</p>
+          <ol>
+            <li>Create an account in <%= link_to "Privacy.com", "https://privacy.com/join/T8XLB" %></li>
+            <li>Go to your <%= link_to "Account Settings", "https://privacy.com/account" %> and enable the Privacy API</li>
+            <li>Copy the access key</li>
+
+            <%= form_for current_user do |f| %>
+              Privacy Access Key: <%= f.text_field :privacy_key %>
+              <%= f.submit %>
+            <% end %>
+
+          </ol>
+        <% else %>
+          <p>Log in with YNAB first :)</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

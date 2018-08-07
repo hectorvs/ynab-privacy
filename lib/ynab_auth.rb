@@ -9,9 +9,10 @@ module OmniAuth
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.
       option :client_options,
-             site: 'https://app.youneedabudget.com',
+             site: 'https://api.youneedabudget.com',
              authorize_url: 'https://app.youneedabudget.com/oauth/authorize',
-             redirect_uri: 'urn:ietf:wg:oauth:2.0:oob'
+             redirect_uri: 'https://localhost:3000/auth/ynab_auth/callback',
+             response_type: 'code'
 
       # These are called after authentication has succeeded. If
       # possible, you should try to set the UID without making
@@ -19,12 +20,11 @@ module OmniAuth
       # or as a URI parameter). This may not be possible with all
       # providers.
 
-      uid { raw_info['id'] }
+      # profile.data.user.id
+      uid { raw_info['data']['user']['id'] }
 
       info do
         {
-          name: raw_info['name'],
-          email: raw_info['email']
         }
       end
 
@@ -35,7 +35,9 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('/me').parsed
+        # puts access_token
+        # @raw_info = { 'email': 'bla@bla.com', 'name': 'bla' }
+        @raw_info ||= access_token.get('/v1/user').parsed
       end
     end
   end

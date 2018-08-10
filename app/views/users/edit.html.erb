@@ -1,0 +1,12 @@
+<p>Obtain an access key for the Privacy.com</p>
+<ol>
+  <li>Create an account in <%= link_to "Privacy.com", "https://privacy.com/join/T8XLB" %></li>
+  <li>Go to your <%= link_to "Account Settings", "https://privacy.com/account" %> and enable the Privacy API</li>
+  <li>Copy the access key</li>
+
+  <%= form_for current_user do |f| %>
+    Privacy Access Key: <%= f.text_field :privacy_key %>
+    <%= f.submit %>
+  <% end %>
+
+</ol>

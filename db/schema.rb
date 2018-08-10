@@ -15,8 +15,7 @@ ActiveRecord::Schema.define(version: 2018_08_07_031739) do
   create_table "users", force: :cascade do |t|
     t.string "uid"
     t.string "provider"
-    t.string "encrypted_privacy_key"
-    t.string "encrypted_privacy_key_iv"
+    t.string "privacy_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

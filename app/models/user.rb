@@ -2,17 +2,15 @@
 #
 # Table name: users
 #
-#  id                       :integer          not null, primary key
-#  encrypted_privacy_key    :string
-#  encrypted_privacy_key_iv :string
-#  provider                 :string
-#  uid                      :string
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
+#  id          :integer          not null, primary key
+#  privacy_key :string
+#  provider    :string
+#  uid         :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 class User < ApplicationRecord
-  attr_encrypted :privacy_key, key: Rails.application.credentials.secret_key_base
   # {
   #   "provider":"ynab_auth",
   #   "uid":"b71a4722-cffd-4035-ba53-bed89aaf27cb",

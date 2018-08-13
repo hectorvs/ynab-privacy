@@ -75,6 +75,7 @@ GEM
     debug_inspector (0.0.3)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (0.7.0)
     erubi (1.7.1)
     ethon (0.11.0)
       ffi (>= 1.3.0)
@@ -84,6 +85,9 @@ GEM
     ffi (1.9.25)
     figaro (1.1.1)
       thor (~> 0.14)
+    foreman (0.64.0)
+      dotenv (~> 0.7.0)
+      thor (>= 0.13.6)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
@@ -143,6 +147,8 @@ GEM
     popper_js (1.14.3)
     puma (3.12.0)
     rack (2.0.5)
+    rack-proxy (0.6.4)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.1.rc1)
@@ -222,6 +228,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webpacker (3.5.5)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -240,6 +250,7 @@ DEPENDENCIES
   bootstrap (~> 4.1.1)
   coffee-rails (~> 4.2)
   figaro
+  foreman
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   material-sass (~> 4.1.1)
@@ -257,6 +268,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  webpacker
   ynab
 
 RUBY VERSION

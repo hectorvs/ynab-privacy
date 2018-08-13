@@ -1,5 +1,20 @@
 {
   "name": "ynab-privacy",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@angular/common": "^6.1.2",
+    "@angular/compiler": "^6.1.2",
+    "@angular/core": "^6.1.2",
+    "@angular/platform-browser": "^6.1.2",
+    "@angular/platform-browser-dynamic": "^6.1.2",
+    "@rails/webpacker": "3.5",
+    "core-js": "^2.5.7",
+    "rxjs": "^6.2.2",
+    "ts-loader": "3.5.0",
+    "typescript": "^3.0.1",
+    "zone.js": "^0.8.26"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
+  }
 }

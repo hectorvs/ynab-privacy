@@ -11,6 +11,7 @@
 #      rails_direct_uploads POST /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
+  get 'links/index'
   get 'privacy/show'
   get 'privacy/edit'
   get 'privacy/update'
@@ -20,6 +21,5 @@ Rails.application.routes.draw do
   get '/log_out' => 'sessions#destroy', as: :log_out
 
   resources :users, only: %i[edit create]
-
-  resources :users
+  get '/links' => 'links#index'
 end

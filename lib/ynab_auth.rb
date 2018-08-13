@@ -9,8 +9,8 @@ module OmniAuth
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.
       option :client_options,
-             site: 'https://api.youneedabudget.com',
-             authorize_url: 'https://app.youneedabudget.com/oauth/authorize',
+             site: ENV['ynab_api_url'],
+             authorize_url: "#{ENV['ynab_app_url']}/oauth/authorize",
              redirect_uri: 'https://localhost:3000/auth/ynab_auth/callback',
              response_type: 'code'
 

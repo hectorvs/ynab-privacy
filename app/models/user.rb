@@ -10,6 +10,9 @@
 #  updated_at  :datetime         not null
 #
 
+require 'rest-client'
+require 'date'
+
 class User < ApplicationRecord
   # {
   #   "provider":"ynab_auth",
@@ -38,4 +41,5 @@ class User < ApplicationRecord
       user.uid = auth['uid']
     end
   end
+
 end

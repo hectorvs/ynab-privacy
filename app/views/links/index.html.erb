@@ -1,0 +1,4 @@
+<h2>Select Budget</h2>
+
+<%= select("name", "id", @budgets.collect { |b| [b.name, b.id]}, { include_blank: true })%>
+

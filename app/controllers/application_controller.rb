@@ -34,4 +34,33 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
+  def refresh_token_if_expired
+    return unless token_expired?
+
+    response = RestClient.post "#{ENV['ynab_app_url']}/oauth/token",
+                               grant_type: 'refresh_token',
+                               refresh_token: session[:ynab_credentials]['refresh_token'],
+                               client_id: Rails.application.credentials.ynab[:client_id],
+                               client_secret: Rails.application.credentials.ynab[:client_secret]
+
+    # response = {
+    #     "access_token": "0cd3d1c4-1107-11e8-b642-0ed5f89f718b",
+    #     "token_type": "bearer",
+    #     "expires_in": 7200,
+    #     "refresh_token": "13ae9632-1107-11e8-b642-0ed5f89f718b"
+    # }
+    refreshed_credentials = JSON.parse(response.body)
+
+    session[:ynab_credentials]['token'] = refreshed_credentials['access_token']
+    session[:ynab_credentials]['expires_at'] = (Time.now + refreshed_credentials['expires_in'].to_i).to_i
+    puts 'refreshed credentials'
+  end
+
+  private
+
+  def token_expired?
+    expiry = Time.at(session[:ynab_credentials]['expires_at'])
+    expiry < Time.now # expired token if the expiry time is less than current
+  end
+
 end

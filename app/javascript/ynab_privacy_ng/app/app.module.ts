@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {ShellComponent} from "./home/shell.component";
 import {WelcomeComponent} from "./home/welcome.component";
 import {PageNotFoundComponent} from "./home/page-not-found.component";
+import {YnabService} from "./home/ynab.service";
 
 @NgModule({
     imports: [
@@ -26,7 +27,7 @@ import {PageNotFoundComponent} from "./home/page-not-found.component";
         WelcomeComponent,
         PageNotFoundComponent
     ],
-    providers: [],
+    providers: [YnabService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

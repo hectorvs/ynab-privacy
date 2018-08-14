@@ -20,7 +20,9 @@ import { PageNotFoundComponent } from "./home/page-not-found.component";
             {
                 path: '**', component: PageNotFoundComponent
             }
-            ]
+            ], {
+            useHash: true
+            }
         )
     ],
     exports: [RouterModule]

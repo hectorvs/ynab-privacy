@@ -1,6 +1,20 @@
 import { Component } from '@angular/core';
+import {YnabService} from "./ynab.service";
+import {Budget} from "./models";
+import {Observable} from "rxjs";
+import templateString from './welcome.component.html';
 
 @Component({
-    template: `<h1>hello from welcome component...</h1>`
+    template: templateString
 })
-export class WelcomeComponent { }
+export class WelcomeComponent {
+    constructor(private ynabService: YnabService) { }
+
+    budgets$: Observable<Budget[]>;
+
+    ngOnInit() {
+        this.budgets$ = this.ynabService.listBudgets();
+    }
+
+
+}

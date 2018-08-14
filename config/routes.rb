@@ -22,4 +22,8 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[edit create]
   get '/links' => 'links#index', as: :links
+
+  namespace :ynab do
+    resources :budgets, only: [:index]
+  end
 end

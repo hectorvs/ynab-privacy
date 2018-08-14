@@ -1,0 +1,5 @@
+<ul>
+    <li *ngFor="let budget of (budgets$ | async)">
+        {{budget.id}} / {{budget.name}}
+    </li>
+</ul>

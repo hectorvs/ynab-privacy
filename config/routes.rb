@@ -21,5 +21,5 @@ Rails.application.routes.draw do
   get '/log_out' => 'sessions#destroy', as: :log_out
 
   resources :users, only: %i[edit create]
-  get '/links' => 'links#index'
+  get '/links' => 'links#index', as: :links
 end

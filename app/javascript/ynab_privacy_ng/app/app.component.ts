@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import templateString from './hello_world.component.html'
 
 @Component({
-  selector: 'ynab-privacy-ng',
-  template: templateString
+    selector: 'ynab-privacy-ng',
+    template: `<router-outlet></router-outlet>`
 })
-export class AppComponent {
-  name = 'baz!';
-}
+export class AppComponent { }

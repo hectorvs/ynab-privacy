@@ -32,6 +32,12 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/forms@^6.1.2":
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-6.1.2.tgz#554459c415c010500640a08d7268bca304c5b491"
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/material@^6.4.5":
   version "6.4.5"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-6.4.5.tgz#284132505841e9ae7895239647ada65ede594350"
@@ -49,6 +55,12 @@
 "@angular/platform-browser@^6.1.2":
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-6.1.2.tgz#9a2a498e27e2bcd0fc8d6c696340c258f8b3e322"
+  dependencies:
+    tslib "^1.9.0"
+
+"@angular/router@^6.1.2":
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-6.1.2.tgz#5e9e12225b41940fe346675caf1ed15033738abc"
   dependencies:
     tslib "^1.9.0"
 

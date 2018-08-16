@@ -20,3 +20,24 @@ export interface CurrencyFormat {
     currency_symbol: string;
     display_symbol:boolean;
 }
+
+export interface CategoryGroup {
+    id: string;
+    name: string;
+    hidden: boolean;
+    deleted: boolean;
+    categories: Category[]
+}
+
+export interface Category {
+    id: string;
+    category_group_id: string;
+    name: string;
+    hidden: boolean;
+    budgeted: number;
+    activity: number;
+    balance: number;
+    goal_target: number;
+    goal_percentage_complete: number;
+    deleted: boolean;
+}

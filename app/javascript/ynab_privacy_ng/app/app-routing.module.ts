@@ -3,6 +3,7 @@ import { RouterModule } from "@angular/router";
 import { ShellComponent } from "./home/shell.component";
 import { WelcomeComponent } from "./home/welcome.component";
 import { PageNotFoundComponent } from "./home/page-not-found.component";
+import {BudgetsComponent} from "./home/budgets.component";
 
 @NgModule({
     imports: [
@@ -13,6 +14,9 @@ import { PageNotFoundComponent } from "./home/page-not-found.component";
                 children: [
                     {
                         path: 'welcome', component: WelcomeComponent
+                    },
+                    {
+                        path: 'budgets', component: BudgetsComponent
                     },
                     { path: '', redirectTo: 'welcome', pathMatch: 'full' }
                 ]

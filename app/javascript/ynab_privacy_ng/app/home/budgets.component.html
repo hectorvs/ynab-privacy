@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-4">
+        <select class="form-control" placeholder="Select a budget" (change)="dropdownSelect($event.target.value)">
+            <option disabled>-- None --</option>
+            <option *ngFor="let budget of (budgets$ | async)" [value]="budget.id">
+                {{budget.name}}
+            </option>
+        </select>
+    </div>
+    <div class="cold-md-8"></div>
+</div>
+
+
+<div *ngIf="(category_groups$ | async) as category_groups; else budget_not_selected">
+    <ul>
+        <li *ngFor="let category_group of category_groups">
+            {{ category_group.name }}
+            <ul>
+                <li *ngFor="let category of category_group.categories">
+                    {{ category.name }}
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</div>
+
+<ng-template #budget_not_selected>
+    select a budget to load categories...
+</ng-template>

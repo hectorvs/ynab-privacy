@@ -1,5 +1,28 @@
-<ul>
-    <li *ngFor="let budget of (budgets$ | async)">
-        {{budget.id}} / {{budget.name}}
-    </li>
-</ul>
+<div class="row">
+    <div class="col-lg">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">How to create a link and automatically import transactions</h5>
+                <p class="card-text">
+                <ol>
+                    <li>
+                        Select a budget.
+                    </li>
+                    <li>
+                        Select a cateogry within the budget.
+                    </li>
+                    <li>
+                        Select a card from Privacy
+                    </li>
+                    <li>
+                        Link!
+                    </li>
+                </ol>
+                </p>
+                <a class="btn btn-primary" routerLink="/budgets"> Start! </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

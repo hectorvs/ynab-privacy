@@ -25,13 +25,16 @@
 
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
+        <ng-template matStepLabel>Select a Card(s)</ng-template>
         <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+            <mat-select placeholder="Privacy.com Cards" [(ngModel)]="selectedCards" multiple>
+                <mat-option *ngFor="let card of (cards$ | async)" [value]="card">
+                    {{ cardName(card) }}
+                </mat-option>
+            </mat-select>
+            <button mat-button >Link!</button>
         </div>
     </mat-step>
-
 </mat-vertical-stepper>
 
+<!--<button mat-button >Link!</button>-->

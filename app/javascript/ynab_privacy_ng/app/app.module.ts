@@ -11,6 +11,7 @@ import {WelcomeComponent} from "./home/welcome.component";
 import {PageNotFoundComponent} from "./home/page-not-found.component";
 import {YnabService} from "./home/ynab.service";
 import {BudgetsComponent} from "./home/budgets.component";
+import {PrivacyService} from "./home/privacy.service";
 
 @NgModule({
     imports: [
@@ -28,7 +29,7 @@ import {BudgetsComponent} from "./home/budgets.component";
         BudgetsComponent,
         PageNotFoundComponent
     ],
-    providers: [YnabService],
+    providers: [YnabService, PrivacyService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

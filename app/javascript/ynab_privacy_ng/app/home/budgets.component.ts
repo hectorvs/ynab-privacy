@@ -1,6 +1,7 @@
 import {Component, EventEmitter} from '@angular/core';
 import {YnabService} from "./ynab.service";
-import {Budget, Category, CategoryGroup} from "./models";
+import {PrivacyService} from "./privacy.service";
+import {Budget, Card, Category, CategoryGroup} from "./models";
 import {Observable} from "rxjs";
 import {filter, map, tap} from "rxjs/operators";
 import templateString from './budgets.component.html';
@@ -10,16 +11,25 @@ import {MatSelectChange, MatStepper} from "@angular/material";
     template: templateString
 })
 export class BudgetsComponent {
-    constructor(private ynabService: YnabService) { }
+    constructor(private ynabService: YnabService, private privacyService: PrivacyService) { }
 
     budgets$: Observable<Budget[]>;
     category_groups$: Observable<CategoryGroup[]>;
+    cards$: Observable<Card[]>;
 
     selectedBudget: Budget;
     selectedCategory: Category;
+    selectedCards: Card[];
 
     ngOnInit() {
         this.budgets$ = this.ynabService.listBudgets();
+        this.cards$ = this.privacyService.listCards().pipe(
+            map(cards => {
+                return cards.filter(card => {
+                    return card.state == 'OPEN';
+                })
+            })
+        );
     }
 
     budgetDropdownSelect(stepper: MatStepper, budget: Budget) {
@@ -63,5 +73,13 @@ export class BudgetsComponent {
         }
 
         return message;
+    }
+
+    cardName(card: Card): string {
+        if (card.hostname === '') {
+            return card.memo;
+        }
+
+        return card.hostname;
     }
 }

@@ -1,24 +1,31 @@
+# == Route Map
 #
-#                    Prefix Verb URI Pattern                                                                              Controller#Action
-#sdfasdf  sd;flkasdf             links_index GET  /links/index(.:format)                                                                   links#index
-#              privacy_show GET  /privacy/show(.:format)                                                                  privacy#show
-#              privacy_edit GET  /privacy/edit(.:format)                                                                  privacy#edit
-#            privacy_update GET  /privacy/update(.:format)                                                                privacy#update
-#                      root GET  /                                                                                        pages#index
-#                           GET  /auth/:provider/callback(.:format)                                                       sessions#create
-#                   log_out GET  /log_out(.:format)                                                                       sessions#destroy
-#                     users POST /users(.:format)                                                                         users#create
-#                 edit_user GET  /users/:id/edit(.:format)                                                                users#edit
-#                     links GET  /links(.:format)                                                                         links#index
-#    ynab_budget_categories GET  /ynab/budgets/:budget_id/categories(.:format)                                            ynab/categories#index
-#              ynab_budgets GET  /ynab/budgets(.:format)                                                                  ynab/budgets#index
-#        rails_service_blob GET  /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
-# rails_blob_representation GET  /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
-#        rails_disk_service GET  /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
-# update_rails_disk_service PUT  /rails/active_storage/disk/:encoded_token(.:format)                                      active_storage/disk#update
-#      rails_direct_uploads POST /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
+#                    Prefix Verb  URI Pattern                                                                              Controller#Action
+#               cards_index GET   /cards/index(.:format)                                                                   cards#index
+#               links_index GET   /links/index(.:format)                                                                   links#index
+#              privacy_show GET   /privacy/show(.:format)                                                                  privacy#show
+#              privacy_edit GET   /privacy/edit(.:format)                                                                  privacy#edit
+#            privacy_update GET   /privacy/update(.:format)                                                                privacy#update
+#                      root GET   /                                                                                        pages#index
+#                           GET   /auth/:provider/callback(.:format)                                                       sessions#create
+#                   log_out GET   /log_out(.:format)                                                                       sessions#destroy
+#                     users POST  /users(.:format)                                                                         users#create
+#                 edit_user GET   /users/:id/edit(.:format)                                                                users#edit
+#                      user GET   /users/:id(.:format)                                                                     users#show
+#                           PATCH /users/:id(.:format)                                                                     users#update
+#                           PUT   /users/:id(.:format)                                                                     users#update
+#                     links GET   /links(.:format)                                                                         links#index
+#    ynab_budget_categories GET   /ynab/budgets/:budget_id/categories(.:format)                                            ynab/categories#index
+#              ynab_budgets GET   /ynab/budgets(.:format)                                                                  ynab/budgets#index
+#             privacy_cards GET   /privacy/cards(.:format)                                                                 privacy/cards#index
+#        rails_service_blob GET   /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
+# rails_blob_representation GET   /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
+#        rails_disk_service GET   /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
+# update_rails_disk_service PUT   /rails/active_storage/disk/:encoded_token(.:format)                                      active_storage/disk#update
+#      rails_direct_uploads POST  /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
+  get 'cards/index'
   get 'links/index'
   get 'privacy/show'
   get 'privacy/edit'
@@ -36,5 +43,9 @@ Rails.application.routes.draw do
     resources :budgets, only: [:index] do
       resources :categories, only: [:index]
     end
+  end
+
+  namespace :privacy do
+    resources :cards, only: [:index]
   end
 end

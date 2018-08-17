@@ -41,3 +41,21 @@ export interface Category {
     goal_percentage_complete: number;
     deleted: boolean;
 }
+
+export class Card {
+    funding: CardFunding;
+    hostname: string;
+    last_four: string;
+    memo: string;
+    spend_limit: number;
+    spend_limit_duration: string;
+    state: string;
+    token: string;
+    type: string;
+}
+
+export interface CardFunding {
+    account_name: string;
+    token: string;
+    type: string;
+}

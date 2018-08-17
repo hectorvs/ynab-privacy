@@ -18,7 +18,8 @@ import {
     MatTabsModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
 } from '@angular/material';
 
 const materialDesignComponents: ReadonlyArray<Type<any>> = [
@@ -39,7 +40,8 @@ const materialDesignComponents: ReadonlyArray<Type<any>> = [
     MatTabsModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
 ];
 
 

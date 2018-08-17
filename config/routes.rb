@@ -23,12 +23,13 @@ Rails.application.routes.draw do
   get 'privacy/show'
   get 'privacy/edit'
   get 'privacy/update'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'pages#index'
   get '/auth/:provider/callback' => 'sessions#create'
   get '/log_out' => 'sessions#destroy', as: :log_out
 
-  resources :users, only: %i[edit create]
+  resources :users, only: %i[edit create show update]
   get '/links' => 'links#index', as: :links
 
   namespace :ynab do

@@ -1,24 +1,37 @@
+<mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step>
+        <ng-template matStepLabel>{{ selectedBudgetMessage() }}  </ng-template>
+        <mat-form-field>
+            <mat-select (selectionChange)="budgetDropdownSelect(stepper, $event.value)">
+                <!--<mat-option>None</mat-option>-->
+                <mat-option *ngFor="let budget of (budgets$ | async)" [value]="budget"> {{ budget.name }} </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-<mat-form-field>
-    <mat-select placeholder="Select a budget" (selectionChange)="dropdownSelect($event.value)">
-        <!--<mat-option>None</mat-option>-->
-        <mat-option *ngFor="let budget of (budgets$ | async)" [value]="budget"> {{ budget.name }} </mat-option>
-    </mat-select>
-</mat-form-field>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel> {{ selectedCategoryMessage() }} </ng-template>
+        <div *ngIf="(category_groups$ | async) as category_groups; else budget_not_selected">
+            <mat-form-field>
+                <mat-select placeholder="Select a category" (selectionChange)="categoryDropdownSelect(stepper, $event.value)">
+                    <mat-optgroup *ngFor="let category_group of category_groups" [label]="category_group.name">
+                        <mat-option *ngFor="let category of category_group.categories" [value]="category">
+                            {{ category.name }}
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
-<div *ngIf="(category_groups$ | async) as category_groups; else budget_not_selected">
-    <mat-form-field>
-        <mat-select placeholder="Select a category" (selectionChange)="categoryDropdownSelect($event.value)">
-            <mat-optgroup *ngFor="let category_group of category_groups" [label]="category_group.name">
-                <mat-option *ngFor="let category of category_group.categories" [value]="category">
-                    {{ category.name }}
-                </mat-option>
-            </mat-optgroup>
-        </mat-select>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+    </mat-step>
 
-    </mat-form-field>
-</div>
+</mat-vertical-stepper>
 
-<ng-template #budget_not_selected>
-    select a budget to load categories...
-</ng-template>

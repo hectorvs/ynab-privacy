@@ -5,13 +5,15 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
     user = User.find_by_provider_and_uid(auth['provider'], auth['uid']) || User.create_with_omniauth(auth)
     session[:user_id] = user.id
-    session[:ynab_credentials] = auth['credentials']
+    user.ynab_access_token = auth['credentials']['token']
+    user.ynab_refresh_token = auth['credentials']['refresh_token']
+    user.ynab_expires_at = Time.new(auth['credentials']['expires_at'])
+    user.save
     redirect_to '/', notice: 'Signed in!'
   end
 
   def destroy
     session[:user_id] = nil
-    session[:ynab_credentials] = nil
     redirect_to '/', notice: 'Signed out!'
   end
 

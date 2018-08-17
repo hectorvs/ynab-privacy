@@ -16,6 +16,9 @@ ActiveRecord::Schema.define(version: 2018_08_07_031739) do
     t.string "uid"
     t.string "provider"
     t.string "privacy_key"
+    t.string "ynab_access_token"
+    t.string "ynab_refresh_token"
+    t.datetime "ynab_expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YnabPrivacy</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= javascript_pack_tag     'ynab_privacy_ng' %>
+  <%= stylesheet_pack_tag     'application' %>
+  <%=  yield :head %>
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <%= link_to 'YNAB - Privacy Linker', root_path, class: 'navbar-brand' %>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <%= yield %>
+</div>
+
+</body>
+</html>

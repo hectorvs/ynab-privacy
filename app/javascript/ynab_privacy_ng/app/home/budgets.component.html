@@ -1,28 +1,22 @@
-<div class="row">
-    <div class="col-md-4">
-        <select class="form-control" placeholder="Select a budget" (change)="dropdownSelect($event.target.value)">
-            <option disabled>-- None --</option>
-            <option *ngFor="let budget of (budgets$ | async)" [value]="budget.id">
-                {{budget.name}}
-            </option>
-        </select>
-    </div>
-    <div class="cold-md-8"></div>
-</div>
 
+<mat-form-field>
+    <mat-select placeholder="Select a budget" (selectionChange)="dropdownSelect($event.value)">
+        <!--<mat-option>None</mat-option>-->
+        <mat-option *ngFor="let budget of (budgets$ | async)" [value]="budget"> {{ budget.name }} </mat-option>
+    </mat-select>
+</mat-form-field>
 
 <div *ngIf="(category_groups$ | async) as category_groups; else budget_not_selected">
-    <ul>
-        <li *ngFor="let category_group of category_groups">
-            {{ category_group.name }}
-            <ul>
-                <li *ngFor="let category of category_group.categories">
+    <mat-form-field>
+        <mat-select placeholder="Select a category" (selectionChange)="categoryDropdownSelect($event.value)">
+            <mat-optgroup *ngFor="let category_group of category_groups" [label]="category_group.name">
+                <mat-option *ngFor="let category of category_group.categories" [value]="category">
                     {{ category.name }}
-                </li>
-            </ul>
-        </li>
-    </ul>
+                </mat-option>
+            </mat-optgroup>
+        </mat-select>
 
+    </mat-form-field>
 </div>
 
 <ng-template #budget_not_selected>

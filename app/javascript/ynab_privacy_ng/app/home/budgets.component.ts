@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 import {YnabService} from "./ynab.service";
-import {Budget, CategoryGroup} from "./models";
+import {Budget, Category, CategoryGroup} from "./models";
 import {Observable} from "rxjs";
 import {filter, map, tap} from "rxjs/operators";
 import templateString from './budgets.component.html';
+import {MatSelectChange} from "@angular/material";
 
 @Component({
     template: templateString
@@ -19,15 +20,8 @@ export class BudgetsComponent {
         this.budgets$ = this.ynabService.listBudgets();
     }
 
-    dropdownSelect(budget_id: string) {
-        // this.ynabService.listCategories(budget_id)
-        //     .subscribe(category_groups => {
-        //         this.category_groups = category_groups
-        //             .filter(category_group => {
-        //                  return (category_group.name !== "Internal Master Category") && (category_group.name !== "Hidden Categories");
-        //         });
-        //     });
-        this.category_groups$ = this.ynabService.listCategories(budget_id).pipe(
+    dropdownSelect(budget: Budget) {
+        this.category_groups$ = this.ynabService.listCategories(budget.id).pipe(
             map(category_groups => {
                 return category_groups.filter(category_group => {
                         return (category_group.name !== "Internal Master Category") &&
@@ -36,5 +30,10 @@ export class BudgetsComponent {
                 )
             })
         );
+    }
+
+    categoryDropdownSelect(category: Category) {
+        console.log(category.id);
+        console.log(category.balance)
     }
 }

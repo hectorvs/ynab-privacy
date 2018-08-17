@@ -4,4 +4,6 @@
 //
 // <%= javascript_pack_tag 'ynab_privacy_ng' %>
 
+import './application.css'
+
 require('../ynab_privacy_ng');

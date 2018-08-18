@@ -7,7 +7,7 @@
 #  provider           :string
 #  uid                :string
 #  ynab_access_token  :string
-#  ynab_expires_at    :datetime
+#  ynab_expires_at    :string
 #  ynab_refresh_token :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

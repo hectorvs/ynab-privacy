@@ -1,15 +1,10 @@
-require 'ynab'
-
 module Ynab
   class BudgetsController < ApplicationController
     before_action :require_user
+    before_action :refresh_token_if_expired
 
     def index
-      refresh_token_if_expired
-
-      ynab = YNAB::API.new(current_user.ynab_access_token)
-
-      budget_response = ynab.budgets.get_budgets
+      budget_response = ynab_api.budgets.get_budgets
       @budgets = budget_response.data.budgets
 
       render json: @budgets

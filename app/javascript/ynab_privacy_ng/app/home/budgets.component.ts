@@ -23,26 +23,13 @@ export class BudgetsComponent {
 
     ngOnInit() {
         this.budgets$ = this.ynabService.listBudgets();
-        this.cards$ = this.privacyService.listCards().pipe(
-            map(cards => {
-                return cards.filter(card => {
-                    return card.state == 'OPEN';
-                })
-            })
-        );
+        this.cards$ = this.privacyService.listCards();
     }
 
     budgetDropdownSelect(stepper: MatStepper, budget: Budget) {
         this.selectedBudget = budget;
 
         this.category_groups$ = this.ynabService.listCategories(budget.id).pipe(
-            map(category_groups => {
-                return category_groups.filter(category_group => {
-                        return (category_group.name !== "Internal Master Category") &&
-                            (category_group.name !== "Hidden Categories");
-                    }
-                )
-            }),
             tap(_ => stepper.next())
         );
     }

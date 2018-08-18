@@ -36,7 +36,7 @@
       </div>
     </div>
   </div>
-  <% if current_user %>
+  <% if current_user && !current_user.privacy_key.empty? %>
   <div class="row">
     <%= link_to  'Build Budget Links', links_index_path, class: 'btn btn-primary btn-lg' %>
   </div>

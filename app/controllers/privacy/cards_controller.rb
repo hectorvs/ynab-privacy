@@ -4,9 +4,13 @@ module Privacy
 
     def index
       response = RestClient.get("#{ENV['privacy_api_url']}/card",
-                                Authorization: "api-key #{current_user.privacy_key}" )
+                                Authorization: "api-key #{current_user.privacy_key}")
 
-      render json: JSON.parse(response)['data']
+      cards = JSON.parse(response)['data'].select do |card|
+        card['state'] == 'OPEN'
+      end
+
+      render json: cards
     end
   end
 end

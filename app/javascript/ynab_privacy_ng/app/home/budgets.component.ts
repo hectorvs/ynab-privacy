@@ -1,45 +1,72 @@
-import {Component, EventEmitter} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {MatStepper} from "@angular/material";
+import {Observable} from "rxjs";
+
 import {YnabService} from "./ynab.service";
 import {PrivacyService} from "./privacy.service";
-import {Budget, Card, Category, CategoryGroup} from "./models";
-import {Observable} from "rxjs";
-import {filter, map, tap} from "rxjs/operators";
+import {Account, Budget, Card, Category, CategoryCardLink, CategoryGroup} from "./models";
+
 import templateString from './budgets.component.html';
-import {MatSelectChange, MatStepper} from "@angular/material";
+import {CardLinkService} from "./card-link.service";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
     template: templateString
 })
 export class BudgetsComponent {
-    constructor(private ynabService: YnabService, private privacyService: PrivacyService) { }
+    constructor(private ynabService: YnabService,
+                private privacyService: PrivacyService,
+                private cardLinkService: CardLinkService,
+                @Inject(DOCUMENT) private document: any) { }
 
-    budgets$: Observable<Budget[]>;
+    budgets: Budget[];
     category_groups$: Observable<CategoryGroup[]>;
     cards$: Observable<Card[]>;
+    accounts$: Observable<Account[]>;
 
     selectedBudget: Budget;
     selectedCategory: Category;
+    selectedAccount: Account;
     selectedCards: Card[];
 
+    categoryCardLinks: CategoryCardLink[] = [];
+
+    creating = false;
+
     ngOnInit() {
-        this.budgets$ = this.ynabService.listBudgets();
+        this.ynabService.listBudgets().subscribe(
+            budgets => {
+                this.budgets = budgets
+            },
+            error => {
+                console.log(error);
+                this.document.location.href = window.location.origin;
+            }
+        );
+
         this.cards$ = this.privacyService.listCards();
+
+        this.cardLinkService.listCardLinks().subscribe(cardLinks =>{
+                this.categoryCardLinks = cardLinks
+            }
+        )
     }
 
     budgetDropdownSelect(stepper: MatStepper, budget: Budget) {
         this.selectedBudget = budget;
-
-        this.category_groups$ = this.ynabService.listCategories(budget.id).pipe(
-            tap(_ => stepper.next())
-        );
+        this.accounts$ = this.ynabService.listAccounts(budget.id);
+        this.category_groups$ = this.ynabService.listCategories(budget.id);
+        stepper.next()
     }
 
     categoryDropdownSelect(stepper: MatStepper, category: Category) {
         this.selectedCategory = category;
         stepper.next();
+    }
 
-        console.log(category.id);
-        console.log("$" + category.balance / 1000)
+    accountDropdownSelect(stepper: MatStepper, account: Account) {
+        this.selectedAccount = account;
+        stepper.next();
     }
 
     selectedBudgetMessage(): string {
@@ -62,11 +89,62 @@ export class BudgetsComponent {
         return message;
     }
 
+    selectedAccountMessage(): string {
+        let message = "Privacy.com Card Funding";
+
+        if (this.selectedAccount !== undefined) {
+            message = this.selectedAccount.name;
+        }
+
+        return message;
+    }
+
     cardName(card: Card): string {
         if (card.hostname === '') {
             return card.memo;
         }
 
         return card.hostname;
+    }
+
+    createLinks(stepper: MatStepper) {
+        this.creating = true;
+        for(const card of this.selectedCards) {
+
+            this.cardLinkService.postCardLink(new CategoryCardLink(
+                card.token,
+                this.selectedAccount.id,
+                this.selectedCategory.id,
+                this.selectedCategory.name,
+                this.cardName(card)
+            )).subscribe(
+                cardLink => this.categoryCardLinks.push(cardLink),
+                error => { console.log(error) },
+                () => {
+                    this.selectedCategory = undefined;
+                    this.selectedAccount = undefined;
+                    this.selectedCards = [];
+                    this.creating = false;
+                    stepper.reset();
+                }
+            )
+
+        }
+    }
+
+    deleteLink(cardLinkId: string) {
+        this.cardLinkService.deleteCardLink(cardLinkId).subscribe( _ => {
+            this.categoryCardLinks = this.categoryCardLinks.filter( cardLink => {
+                return cardLink.id !== cardLinkId;
+            })
+        });
+    }
+
+    disableOption(card: Card): boolean {
+        let link: CategoryCardLink = this.categoryCardLinks.find(cardLink =>
+            cardLink.privacy_card_id === card.token
+        );
+
+        return link !== undefined;
     }
 }

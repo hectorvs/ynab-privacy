@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def require_user
     return true if current_user
 
-    redirect_to '/', notice: 'You must be logged in to access that page.'
+    redirect_to request.base_url, notice: 'You must be logged in to access that page.'
   end
 
   def current_user
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     current_use.save!
   rescue StandardError => e
     session[:user_id] = nil
-    redirect_to('/', notice: "Error Refreshing Token #{e.message}. Log back in.")
+    # redirect_to request.base_url, notice: "Error Refreshing Token #{e.message}. Log back in."
   end
 
   def token_expired?

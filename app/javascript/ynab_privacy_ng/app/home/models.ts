@@ -42,6 +42,18 @@ export interface Category {
     deleted: boolean;
 }
 
+export interface Account {
+    id: string;
+    name: string;
+    type: string;
+    on_budget: boolean;
+    closed: boolean;
+    balance: number;
+    cleared_balance: number;
+    uncleared_balance: number;
+    deleted: boolean;
+}
+
 export class Card {
     funding: CardFunding;
     hostname: string;
@@ -58,4 +70,24 @@ export interface CardFunding {
     account_name: string;
     token: string;
     type: string;
+}
+
+export class CategoryCardLink {
+    id: string;
+    privacy_card_id: string;
+    account_id: string;
+    category_id: string;
+    category_name: string;
+    privacy_card_name: string;
+    constructor(privacy_card_id: string,
+                account_id: string,
+                category_id: string,
+                category_name: string,
+                privacy_card_name: string )  {
+        this.privacy_card_id = privacy_card_id;
+        this.account_id = account_id;
+        this.category_id =  category_id;
+        this.category_name = category_name;
+        this.privacy_card_name =  privacy_card_name;
+    }
 }

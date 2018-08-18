@@ -10,17 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_031739) do
+ActiveRecord::Schema.define(version: 2018_08_18_192301) do
 
-  create_table "users", force: :cascade do |t|
-    t.string "uid"
-    t.string "provider"
-    t.string "privacy_key"
-    t.string "ynab_access_token"
-    t.string "ynab_refresh_token"
-    t.string "ynab_expires_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+# Could not dump table "category_card_links" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+# Could not dump table "users" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
 
 end

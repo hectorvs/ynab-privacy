@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Budget, CategoryGroup }  from "./models";
+import {Account, Budget, CategoryGroup }  from "./models";
 import {Observable} from "rxjs";
 
 @Injectable()
@@ -9,6 +9,10 @@ export class YnabService {
 
     listBudgets(): Observable<Budget[]> {
         return this.http.get<Budget[]>('/ynab/budgets');
+    }
+
+    listAccounts(budget_id: string): Observable<Account[]> {
+        return this.http.get<Account[]>(`/ynab/budgets/${budget_id}/accounts`)
     }
 
     listCategories(budget_id: string): Observable<CategoryGroup[]> {

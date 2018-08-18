@@ -2,28 +2,20 @@
 <html>
 <head>
   <title>YnabPrivacy</title>
+  <meta charset="utf-8">
+
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
   <%= javascript_pack_tag     'ynab_privacy_ng' %>
   <%= stylesheet_pack_tag     'application' %>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-  <%=  yield :head %>
 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+  <base href="/category_links">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-<nav class="navbar navbar-inverse">
-  <div class="container">
-    <div class="navbar-header">
-      <%= link_to 'YNAB - Privacy Linker', root_path, class: 'navbar-brand' %>
-    </div>
-  </div>
-</nav>
-
-<div class="container">
   <%= yield %>
-</div>
-
 </body>
 </html>

@@ -5,9 +5,9 @@ class UsersController < ApplicationController
 
     if @user.update_attributes(user_params)
       # TODO: do something to verify privacy key
-      redirect_to '/', notice: 'Saved Privacy Access Key!'
+      redirect_to request.base_url, notice: 'Saved Privacy Access Key!'
     else
-      redirect_to '/', notice: 'Error saving Privacy Key'
+      redirect_to request.base_url, notice: 'Error saving Privacy Key'
     end
   end
 

@@ -12,14 +12,15 @@ import {PageNotFoundComponent} from "./home/page-not-found.component";
 import {YnabService} from "./home/ynab.service";
 import {BudgetsComponent} from "./home/budgets.component";
 import {PrivacyService} from "./home/privacy.service";
+import {CardLinkService} from "./home/card-link.service";
 
 @NgModule({
     imports: [
         BrowserModule,
-        FormsModule,
         BrowserAnimationsModule,
-        HttpClientModule,
         AppMaterialModule,
+        FormsModule,
+        HttpClientModule,
         AppRoutingModule,
     ],
     declarations: [
@@ -29,7 +30,11 @@ import {PrivacyService} from "./home/privacy.service";
         BudgetsComponent,
         PageNotFoundComponent
     ],
-    providers: [YnabService, PrivacyService],
+    providers: [
+        YnabService,
+        PrivacyService,
+        CardLinkService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

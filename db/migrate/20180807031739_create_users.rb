@@ -2,8 +2,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
   # TODO: look into encrypting keys and tokens
 
   def change
-    create_table :users do |t|
-      t.string :uid
+    create_table :users, id: :uuid do |t|
+
       t.string :provider
       t.string :privacy_key
       t.string :ynab_access_token

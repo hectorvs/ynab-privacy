@@ -8,6 +8,8 @@ module Ynab
       @budgets = budget_response.data.budgets
 
       render json: @budgets
+    rescue StandardError => e
+      render json: { message: e.message }, code: 500
     end
   end
 end

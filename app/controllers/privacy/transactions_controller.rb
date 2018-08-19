@@ -6,13 +6,10 @@ module Privacy
     skip_before_action :verify_authenticity_token
 
     def receive
-      render nothing: true unless request.headers['Content-Type'] == 'application/json'
 
-      puts "Processing things with #{JSON.parse(params)}"
-      puts "Just FYI request.body.read #{JSON.parse(request.body.read)}"
+      puts "Processing things with #{params.as_json}"
 
-      privacy_transaction = JSON.parse(params)
-
+      privacy_transaction = params.as_json
 
       used_privacy_card_data = privacy_transaction['card']
       merchant_data = privacy_transaction['merchant']
@@ -47,7 +44,7 @@ module Privacy
       render body: nil
 
     rescue => e
-      puts "ERROR: id=#{e.id}; name=#{e.name}; detail: #{e.detail}"
+      puts "ERROR: id=#{e.message}"
     end
 
     private

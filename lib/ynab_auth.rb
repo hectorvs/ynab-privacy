@@ -11,7 +11,8 @@ module OmniAuth
       option :client_options,
              site: ENV['ynab_api_url'],
              authorize_url: "#{ENV['ynab_app_url']}/oauth/authorize",
-             redirect_uri: 'https://localhost:5000/auth/ynab_auth/callback',
+             # redirect_uri: 'https://localhost:5000/auth/ynab_auth/callback',
+             redirect_uri: 'https://ynab-privacy.herokuapp.com/auth/ynab_auth/callback',
              response_type: 'code'
 
       # These are called after authentication has succeeded. If

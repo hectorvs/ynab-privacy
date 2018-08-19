@@ -12,10 +12,34 @@
 
 ActiveRecord::Schema.define(version: 2018_08_18_192301) do
 
-# Could not dump table "category_card_links" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
+  enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-# Could not dump table "users" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "category_card_links", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "user_id"
+    t.string "account_id"
+    t.string "account_name"
+    t.string "budget_id"
+    t.string "budget_name"
+    t.string "category_id"
+    t.string "category_name"
+    t.string "privacy_card_id"
+    t.string "privacy_card_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["privacy_card_id"], name: "index_category_card_links_on_privacy_card_id", unique: true
+  end
+
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "provider"
+    t.string "privacy_key"
+    t.string "ynab_access_token"
+    t.string "ynab_refresh_token"
+    t.string "ynab_expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

@@ -75,17 +75,28 @@ export interface CardFunding {
 export class CategoryCardLink {
     id: string;
     privacy_card_id: string;
+    privacy_card_name: string;
     account_id: string;
+    account_name: string;
+    budget_id: string;
+    budget_name: string;
     category_id: string;
     category_name: string;
-    privacy_card_name: string;
-    constructor(privacy_card_id: string,
-                account_id: string,
-                category_id: string,
-                category_name: string,
-                privacy_card_name: string )  {
+    constructor(
+        privacy_card_id: string,
+        privacy_card_name: string,
+        account_id: string,
+        account_name: string,
+        budget_id: string,
+        budget_name: string,
+        category_id: string,
+        category_name: string
+    )  {
         this.privacy_card_id = privacy_card_id;
         this.account_id = account_id;
+        this.account_name = account_name;
+        this.budget_id = budget_id;
+        this.budget_name = budget_name;
         this.category_id =  category_id;
         this.category_name = category_name;
         this.privacy_card_name =  privacy_card_name;

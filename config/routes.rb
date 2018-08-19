@@ -21,6 +21,7 @@
 #      ynab_budget_accounts GET    /ynab/budgets/:budget_id/accounts(.:format)                                              ynab/accounts#index
 #              ynab_budgets GET    /ynab/budgets(.:format)                                                                  ynab/budgets#index
 #             privacy_cards GET    /privacy/cards(.:format)                                                                 privacy/cards#index
+#      privacy_transactions POST   /privacy/transactions(.:format)                                                          privacy/transactions#receive
 #        rails_service_blob GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
 # rails_blob_representation GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
 #        rails_disk_service GET    /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
@@ -51,5 +52,6 @@ Rails.application.routes.draw do
 
   namespace :privacy do
     resources :cards, only: [:index]
+    post '/transactions' => 'transactions#receive', as: :transactions
   end
 end

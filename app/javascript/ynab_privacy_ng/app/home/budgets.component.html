@@ -10,17 +10,38 @@
             <mat-step>
                 <ng-template matStepLabel>{{ selectedBudgetMessage() }}  </ng-template>
                 <mat-form-field>
-                    <mat-select  placeholder="Select a Budget" (selectionChange)="budgetDropdownSelect(stepper, $event.value)">
+                    <mat-select  placeholder="Select a Budget" [(ngModel)]="selectedBudget"
+                                 (selectionChange)="budgetDropdownSelect($event.value)" #budgetDropdown>
                         <mat-option *ngFor="let budget of budgets" [value]="budget"> {{ budget.name }} </mat-option>
                     </mat-select>
                 </mat-form-field>
-
+                <div *ngIf="selectedBudget && !budgetDropdown.panelOpen" >
+                    <br>
+                    <button mat-stroked-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>{{ selectedAccountMessage() }}</ng-template>
+                <div *ngIf="(accounts$ | async) as accounts">
+                    <mat-form-field>
+                        <mat-select placeholder="Funding Account" [(ngModel)]="selectedAccount"
+                                    #accountDropdown >
+                            <mat-option *ngFor="let account of accounts" [value]="account">
+                                {{ account.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div *ngIf="selectedAccount && !accountDropdown.panelOpen" >
+                        <br>
+                        <button mat-stroked-button matStepperNext>Next</button>
+                    </div>
+                </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel> {{ selectedCategoryMessage() }} </ng-template>
-                <div *ngIf="(category_groups$ | async) as category_groups; else budget_not_selected">
-                    <mat-form-field>
-                        <mat-select placeholder="Select a Category" (selectionChange)="categoryDropdownSelect(stepper, $event.value)">
+                <div *ngIf="(category_groups$ | async) as category_groups">
+                    <mat-form-field >
+                        <mat-select placeholder="Select a Category" [(ngModel)]="selectedCategory" #categoryDropdown>
                             <mat-optgroup *ngFor="let category_group of category_groups" [label]="category_group.name">
                                 <mat-option *ngFor="let category of category_group.categories" [value]="category">
                                     {{ category.name }}
@@ -28,32 +49,24 @@
                             </mat-optgroup>
                         </mat-select>
                     </mat-form-field>
-                </div>
-            </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>{{ selectedAccountMessage() }}</ng-template>
-                <div *ngIf="(accounts$ | async) as accounts; else account_not_selected">
-                    <mat-form-field>
-                        <mat-select placeholder="Funding Account" (selectionChange)="accountDropdownSelect(stepper, $event.value)">
-                            <mat-option *ngFor="let account of accounts" [value]="account">
-                                {{ account.name }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                    <div *ngIf="selectedCategory && !categoryDropdown.panelOpen">
+                        <br>
+                        <button mat-stroked-button matStepperNext>Next</button>
+                    </div>
                 </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Select a Card(s)</ng-template>
                 <mat-form-field>
-                    <mat-select placeholder="Privacy.com Cards" [(ngModel)]="selectedCards" multiple #dropdown>
+                    <mat-select placeholder="Privacy.com Cards" [(ngModel)]="selectedCards" multiple #cardDropdown>
                         <mat-option style="width:25em;" *ngFor="let card of (cards$ | async)"
                                     [value]="card" [disabled]="disableOption(card)">
                             {{ cardName(card) }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <br/>
-                <div *ngIf="selectedCards && !dropdown.panelOpen">
+                <div *ngIf="selectedCards.length > 0 && !cardDropdown.panelOpen">
+                    <br/>
                     <button mat-raised-button color="primary"
                             [disabled]="creating"
                             (click)="createLinks(stepper)"> Create Links! </button>
@@ -61,31 +74,30 @@
             </mat-step>
         </mat-vertical-stepper>
     </mat-grid-tile>
-
-    <mat-grid-tile>
-        <ul>
-            <table>
-                <tr>
-                    <th>Category</th>
-                    <th>Privacy Card</th>
-                    <th></th>
-                </tr>
-                <tr *ngFor="let cardLink of categoryCardLinks">
-                    <td> {{ cardLink.category_name }} </td>
-                    <td> {{ cardLink.privacy_card_name }} </td>
-                    <td>
-
-                        <button (click)="deleteLink(cardLink.id)" mat-icon-button>
-                            <mat-icon>delete_outline</mat-icon>
-                        </button>
-
-                    </td>
-                </tr>
-
-            </table>
-        </ul>
-
-    </mat-grid-tile>
+        <mat-grid-tile>
+            <div *ngIf="categoryCardLinks.length > 0">
+                <table>
+                    <tr>
+                        <th>Account</th>
+                        <th>Funding Account</th>
+                        <th>Category</th>
+                        <th>Privacy Card</th>
+                        <th></th>
+                    </tr>
+                    <tr *ngFor="let cardLink of categoryCardLinks">
+                        <td> {{ cardLink.budget_name }} </td>
+                        <td> {{ cardLink.account_name }} </td>
+                        <td> {{ cardLink.category_name }} </td>
+                        <td> {{ cardLink.privacy_card_name }} </td>
+                        <td>
+                            <button (click)="deleteLink(cardLink.id)" mat-icon-button>
+                                <mat-icon>delete_outline</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </mat-grid-tile>
 </mat-grid-list>
 
 

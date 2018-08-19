@@ -23,9 +23,9 @@ class LinksController < ApplicationController
   private
 
   def card_link_params
-    params.require(:category_card_link).permit(:privacy_card_id, :account_id,
-                                               :category_id, :category_id,
-                                               :category_name,
-                                               :privacy_card_name)
+    params.require(:category_card_link).permit(:privacy_card_id, :privacy_card_name,
+                                               :budget_id,  :budget_name,
+                                               :account_id, :account_name,
+                                               :category_id, :category_name)
   end
 end

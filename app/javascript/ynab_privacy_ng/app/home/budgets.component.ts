@@ -19,16 +19,16 @@ export class BudgetsComponent {
                 private cardLinkService: CardLinkService,
                 @Inject(DOCUMENT) private document: any) { }
 
-    budgets: Budget[];
+
     category_groups$: Observable<CategoryGroup[]>;
     cards$: Observable<Card[]>;
     accounts$: Observable<Account[]>;
+    budgets: Budget[] = [];
 
     selectedBudget: Budget;
     selectedCategory: Category;
     selectedAccount: Account;
-    selectedCards: Card[];
-
+    selectedCards: Card[] = [];
     categoryCardLinks: CategoryCardLink[] = [];
 
     creating = false;
@@ -52,21 +52,9 @@ export class BudgetsComponent {
         )
     }
 
-    budgetDropdownSelect(stepper: MatStepper, budget: Budget) {
-        this.selectedBudget = budget;
+    budgetDropdownSelect(budget: Budget) {
         this.accounts$ = this.ynabService.listAccounts(budget.id);
         this.category_groups$ = this.ynabService.listCategories(budget.id);
-        stepper.next()
-    }
-
-    categoryDropdownSelect(stepper: MatStepper, category: Category) {
-        this.selectedCategory = category;
-        stepper.next();
-    }
-
-    accountDropdownSelect(stepper: MatStepper, account: Account) {
-        this.selectedAccount = account;
-        stepper.next();
     }
 
     selectedBudgetMessage(): string {
@@ -111,13 +99,17 @@ export class BudgetsComponent {
         this.creating = true;
         for(const card of this.selectedCards) {
 
-            this.cardLinkService.postCardLink(new CategoryCardLink(
-                card.token,
-                this.selectedAccount.id,
-                this.selectedCategory.id,
-                this.selectedCategory.name,
-                this.cardName(card)
-            )).subscribe(
+            this.cardLinkService.postCardLink(
+                new CategoryCardLink(
+                    card.token,
+                    this.cardName(card),
+                    this.selectedAccount.id,
+                    this.selectedAccount.name,
+                    this.selectedBudget.id,
+                    this.selectedBudget.name,
+                    this.selectedCategory.id,
+                    this.selectedCategory.name)
+            ).subscribe(
                 cardLink => this.categoryCardLinks.push(cardLink),
                 error => { console.log(error) },
                 () => {

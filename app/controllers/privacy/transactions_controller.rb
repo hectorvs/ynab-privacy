@@ -8,36 +8,47 @@ module Privacy
     def receive
       render nothing: true unless request.headers['Content-Type'] == 'application/json'
 
-      privacy_transaction = JSON.parse(request.body.read)['data']
-      used_privacy_card_data = privacy_transaction['card']
-      merchant_data = privacy_transaction['merchant']
-      transaction_descriptor = merchant_data['descriptor'].to_s
-      created_date = privacy_transaction['created'].to_s
-      settled_amount = privacy_transaction['settled_amount'].to_i * -10
+      privacy_transactions = JSON.parse(request.body.read)['data']
 
-      card_link = CategoryCardLink.find_by_privacy_card_id(used_privacy_card_data['token'])
+      puts "====== PRIVACY TRANSACTION ====="
+      puts privacy_transactions
 
-      render body: nil unless card_link
+      if privacy_transactions.is_a?(Hash)
+        privacy_transactions = [privacy_transactions]
+      end
 
-      refresh_access_token_if_expired(card_link.user)
+      privacy_transactions.each do |privacy_transaction|
 
-      ynab_client = YNAB::API.new(card_link.user.ynab_access_token)
+        used_privacy_card_data = privacy_transaction['card']
+        merchant_data = privacy_transaction['merchant']
+        transaction_descriptor = merchant_data['descriptor'].to_s
+        created_date = privacy_transaction['created'].to_s
+        settled_amount = privacy_transaction['settled_amount'].to_i * -10
 
-      ynab_client.transactions.create_transaction(
-          card_link.budget_id,
-          {
-              transaction: {
-                  account_id: card_link.account_id,
-                  category_id: card_link.category_id,
-                  date: created_date,
-                  payee_name: transaction_descriptor,
-                  memo: 'Created using YNAB - Privacy.com linker :)',
-                  cleared: 'Cleared',
-                  approved: true,
-                  amount:  settled_amount
-              }
-          }
+        card_link = CategoryCardLink.find_by_privacy_card_id(used_privacy_card_data['token'])
+
+        next unless card_link
+
+        refresh_access_token_if_expired(card_link.user)
+
+        ynab_client = YNAB::API.new(card_link.user.ynab_access_token)
+
+        ynab_client.transactions.create_transaction(
+            card_link.budget_id,
+            {
+                transaction: {
+                    account_id: card_link.account_id,
+                    category_id: card_link.category_id,
+                    date: created_date,
+                    payee_name: transaction_descriptor,
+                    memo: 'Created using YNAB - Privacy.com linker :)',
+                    cleared: 'Cleared',
+                    approved: true,
+                    amount:  settled_amount
+                }
+            }
         )
+      end
 
       render body: nil
 

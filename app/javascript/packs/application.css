@@ -3,3 +3,8 @@
 body {
     font-family: Robot, sans-serif;
 }
+
+.stepper_dropdown {
+    width: 300px;
+    margin-right: 1em;
+}

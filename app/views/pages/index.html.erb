@@ -7,10 +7,10 @@
             <p>
              <span>Connected</span> <i class="material-icons">done</i>
             </p>
-            <%= link_to "Log out from YNAB", log_out_path, class: 'btn btn-primary btn-lg' %>
+            <%= link_to "Log out from YNAB", log_out_path, class: 'btn btn-primary-indigo btn-lg' %>
           <% else %>
           <p>Log in with YNAB to START linking your transactions :)</p>
-          <%= link_to "Sign in To YNAB", "/auth/ynab_auth", class: 'btn btn-primary btn-lg' %>
+          <%= link_to "Sign in To YNAB", "/auth/ynab_auth", class: 'btn btn-primary-indigo btn-lg' %>
         <% end %>
       </div>
     </div>
@@ -21,12 +21,12 @@
 
           <% if current_user.privacy_key.to_s.empty? %>
             <p>Add your Privacy.com Access token to receive transactions</p>
-            <%= link_to 'Add Privacy Access Token', edit_user_path(current_user), class: 'btn btn-primary btn-lg'  %>
+            <%= link_to 'Add Privacy Access Token', edit_user_path(current_user), class: 'btn btn-primary-indigo btn-lg'  %>
           <% else %>
             <p>
               <span>Connected</span> <i class="material-icons">done</i>
             </p>
-            <%= link_to 'Edit Privacy Access Token', edit_user_path(current_user), class: 'btn btn-primary btn-lg'%>
+            <%= link_to 'Edit Privacy Access Token', edit_user_path(current_user), class: 'btn btn-primary-indigo btn-lg'%>
           <% end %>
 
 
@@ -38,7 +38,9 @@
   </div>
   <% if current_user && current_user.privacy_key %>
   <div class="row">
-    <%= link_to  'Build Budget Links', category_links_path, class: 'btn btn-primary btn-lg' %>
+    <div class="mx-auto" style="margin-top: 100px">
+      <%= link_to  'Build Budget Links', category_links_path, class: 'btn btn-primary-indigo btn-lg' %>
+    </div>
   </div>
   <% end %>
 </div>

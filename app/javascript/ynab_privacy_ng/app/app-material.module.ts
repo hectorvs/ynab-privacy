@@ -19,6 +19,7 @@ import {
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatBadgeModule,
     MatStepperModule
 } from '@angular/material';
 
@@ -41,6 +42,7 @@ const materialDesignComponents: ReadonlyArray<Type<any>> = [
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatBadgeModule,
     MatStepperModule
 ];
 

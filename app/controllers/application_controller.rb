@@ -19,8 +19,12 @@ class ApplicationController < ActionController::Base
     redirect_to request.base_url, notice: 'You must be logged in to access that page.'
   end
 
-  def current_user(id = session[:user_id])
-    @current_user ||= User.find(id) if id
+  def set_current_user(user)
+    @current_user = user
+  end
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
   def refresh_token_if_expired

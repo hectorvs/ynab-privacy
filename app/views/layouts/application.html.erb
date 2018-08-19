@@ -7,20 +7,14 @@
 
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
-  <%= javascript_pack_tag     'ynab_privacy_ng' %>
   <%=  yield :head %>
 </head>
 
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse bg-primary-indigo">
   <div class="container">
     <div class="navbar-header">
       <%= link_to 'YNAB - Privacy Linker', root_path, class: 'navbar-brand' %>
-    </div>
-    <div id="navbar">
-      <ul class="nav navbar-nav">
-
-      </ul>
     </div>
   </div>
 </nav>

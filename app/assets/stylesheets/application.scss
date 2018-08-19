@@ -15,5 +15,16 @@
  * https://material.io/tools/icons/?style=baseline
  *= require material_icons
  */
-
 @import "material";
+
+.bg-primary-indigo {
+  background-color: #3f51b5;
+  color: white;
+  margin: 5px;
+  font-weight: bold;
+}
+
+.btn-primary-indigo {
+  background-color: #3f51b5;
+  color: white;
+}

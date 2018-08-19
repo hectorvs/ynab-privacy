@@ -8,6 +8,10 @@ With the app you can browse your YNAB budgets, select the category and link whic
 
 When a transaction happens using one of the Privacy.com cards, Privacy will POST the transaction to a webhook in this app, which will then look up the created card link and automatically import the transaction into YNAB to the budget and category specified.
 
+### Demo Screencast
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/DMcp9DgfNrw/0.jpg)](http://www.youtube.com/watch?v=DMcp9DgfNrw "YNAB Privacy Linker Demo")
+
 _Disclaimer: this is a proof of concept project! use at your own risk_
 
 ### Usage Instructions

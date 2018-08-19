@@ -7,15 +7,13 @@ module Privacy
 
     def receive
 
-      puts "Processing things with #{params.as_json}"
-
       privacy_transaction = params.as_json
 
       used_privacy_card_data = privacy_transaction['card']
       merchant_data = privacy_transaction['merchant']
       transaction_descriptor = merchant_data['descriptor'].to_s
       created_date = privacy_transaction['created'].to_s
-      settled_amount = privacy_transaction['settled_amount'].to_i * -10
+      amount = privacy_transaction['amount'].to_i * -10
 
       card_link = CategoryCardLink.find_by_privacy_card_id(used_privacy_card_data['token'])
 
@@ -34,9 +32,8 @@ module Privacy
                   date: created_date,
                   payee_name: transaction_descriptor,
                   memo: 'Created using YNAB - Privacy.com linker :)',
-                  cleared: 'Cleared',
                   approved: true,
-                  amount:  settled_amount
+                  amount:  amount
               }
           }
       )

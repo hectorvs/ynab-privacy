@@ -12,9 +12,8 @@
         <mat-tab>
             <ng-template mat-tab-label>
                 <mat-icon class="example-tab-icon">build</mat-icon>
-                Create Category / Card Links
+                Create Card Links
             </ng-template>
-            <h2>Create Card Links</h2>
             <mat-vertical-stepper [linear]="true" #stepper>
                 <mat-step>
                     <ng-template matStepLabel>{{ selectedBudgetMessage() }}  </ng-template>
@@ -88,8 +87,6 @@
             </span>
             </ng-template>
             <div *ngIf="categoryCardLinks.length > 0">
-
-            <h2> Created Card Links </h2>
             <table  cellpadding="10">
                 <tr>
                     <th>YNAB Budget</th>

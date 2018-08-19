@@ -22,7 +22,7 @@ module Privacy
 
       card_link = CategoryCardLink.find_by_privacy_card_id(used_privacy_card_data['token'])
 
-      next unless card_link
+      render body: nil unless card_link
 
       refresh_access_token_if_expired(card_link.user)
 

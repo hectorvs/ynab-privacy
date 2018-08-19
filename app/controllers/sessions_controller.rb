@@ -4,9 +4,8 @@ class SessionsController < ApplicationController
   def create
     auth = request.env['omniauth.auth']
 
-    user = User.find(auth['uid']) || User.new
+    user = User.find_or_create_by(id: auth['uid'])
 
-    user.id = auth['uid']
     user.provider = auth['provider']
     user.ynab_access_token = auth['credentials']['token']
     user.ynab_refresh_token = auth['credentials']['refresh_token']

@@ -1,24 +1,27 @@
-# README
+# YNAB Privacy Linker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Automatically import transactions when you make purchases 
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
+## Deploying to Heroku
 
-* Configuration
+_Note: this steps are for refernce only, you do not need to do these_
 
-* Database creation
+After you have created a heroku app correctly and have the heroku-cli:
 
-* Database initialization
 
-* How to run the test suite
+### Add the right buildpacks to use webpacker + rails
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+heroku buildpacks:clear
+heroku buildpacks:add heroku/nodejs
+heroku buildpacks:add heroku/ruby
+```
 
-* Deployment instructions
+### Add the environment variables needed
 
-* ...
+```bash
+heroku config:set RAILS_MASTER_KEY=<key in /config/maskter.key>
+figaro heroku:set -a <heroku-app-name>
+```

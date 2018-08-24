@@ -6,6 +6,7 @@
 #              privacy_edit GET    /privacy/edit(.:format)                                                                  privacy#edit
 #            privacy_update GET    /privacy/update(.:format)                                                                privacy#update
 #                      root GET    /                                                                                        pages#index
+#            privacy_policy GET    /privacy_policy(.:format)                                                                pages#privacy_policy
 #                           GET    /auth/:provider/callback(.:format)                                                       sessions#create
 #                   log_out GET    /log_out(.:format)                                                                       sessions#destroy
 #            category_links GET    /category_links(.:format)                                                                pages#category_links
@@ -36,6 +37,7 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'pages#index'
+  get '/privacy_policy' => 'pages#privacy_policy'
   get '/auth/:provider/callback' => 'sessions#create'
   get '/log_out' => 'sessions#destroy', as: :log_out
   get '/category_links' => 'pages#category_links', as: :category_links
